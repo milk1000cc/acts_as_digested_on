@@ -20,6 +20,19 @@ describe "ActsAsDigestedOn" do
       article = Article.new(:url => url)
       article.generate_digest.should == Digest::SHA1.hexdigest("--#{ url }--")
     end
+
+    describe 'when more than one target field is given' do
+      it 'should generate sha-1 digest of target fields with some string' do
+        Article.class_eval do
+          acts_as_digested_on [:title, :url]
+        end
+
+        title = 'an article'
+        url = 'http://example.com'
+        article = Article.new(:title => title, :url => url)
+        article.generate_digest.should == Digest::SHA1.hexdigest("--#{ title }--#{ url }--")
+      end
+    end
   end
 
   describe 'before validation' do
