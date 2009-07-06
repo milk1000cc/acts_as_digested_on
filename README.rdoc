@@ -1,7 +1,70 @@
-= acts_as_digested_on
+= ActsAsDigestedOn
 
-Description goes here.
+acts_as_digested_on sets the digested value before validation and validates uniqueness of the digested value.
+
+== Install
+
+  sudo gem install milk1000cc-acts_as_digested_on --source=http://gems.github.com
+
+or
+
+  script/plugin install git://github.com/milk1000cc/acts_as_digested_on.git
+
+== Usage
+
+  # db/migrate/20090706000000_create_articles.rb
+  class CreateArticles < ActiveRecord::Migration
+    def self.up
+      create_table :articles do |t|
+        t.text :url       # any type is ok
+        t.string :digest  # this is sha-1 hex digest field of url value
+        ...
+      end
+
+      add_index :articles, :digest, :unique => true  # you can add index on digest field
+    end
+
+    def self.down
+      drop_table :articles
+    end
+  end
+
+  # app/models/article.rb
+  class Article < ActiveRecord::Base
+    acts_as_digested_on :url  # please add this
+    ...
+  end
+
+  # this equals
+  class Article < ActiveRecord::Base
+    validates_uniqueness_of :digest
+    before_validation :set_digest
+
+    def generate_digest
+      Digest::SHA1.hexdigest "--#{ url.to_s }--"
+    end
+
+    private
+    def set_digest
+      self.digest = generate_digest
+    end
+    ...
+  end
+
+== Examples
+
+  acts_as_digested_on :url, :unique => false
+
+  acts_as_digested_on :url, :digest_column => :url_digest
+
+  acts_as_digested_on [:url, :salt]
+
+  acts_as_digested_on :url, :scope => :site_id
+
+  Article.new(:url => 'http://example.com').generate_digest
 
 == Copyright
 
-Copyright (c) 2009 milk1000cc. See LICENSE for details.
+Copyright (c) 2009 milk1000cc, released under the MIT license
+
+milk1000cc <mailto:info@milk1000.cc>
