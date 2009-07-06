@@ -5,6 +5,7 @@ class Article < ActiveRecord::Base
     t.string :title
     t.text :url
     t.string :digest
+    t.string :my_digest
     t.text :content
   end
 end
@@ -46,6 +47,28 @@ describe "ActsAsDigestedOn" do
       article.digest.should be_nil
       article.valid?
       article.digest.should == article.generate_digest
+    end
+
+    it 'should set the digest value to :digest_column field when :digest_column option is set' do
+      pending
+    end
+  end
+
+  describe 'when validation' do
+    it 'should validate uniqueness of digest field by default' do
+      pending
+    end
+
+    it 'should validate uniqueness of digest field when :unique option is true' do
+      pending
+    end
+
+    it 'should carry over the options to the validates_uniqueness_of options' do
+      pending
+    end
+
+    it 'should not validate uniqueness of digest field when :unique option is false' do
+      pending
     end
   end
 end
