@@ -21,4 +21,18 @@ describe "ActsAsDigestedOn" do
       article.generate_digest.should == Digest::SHA1.hexdigest("--#{ url }--")
     end
   end
+
+  describe 'before validation' do
+    it 'should set "digest" field' do
+      Article.class_eval do
+        acts_as_digested_on :url
+      end
+
+      url = 'http://example.com'
+      article = Article.new(:url => url)
+      article.digest.should be_nil
+      article.valid?
+      article.digest.should == article.generate_digest
+    end
+  end
 end
