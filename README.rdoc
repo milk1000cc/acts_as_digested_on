@@ -1,0 +1,7 @@
+= acts_as_digested_on
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 milk1000cc. See LICENSE for details.
