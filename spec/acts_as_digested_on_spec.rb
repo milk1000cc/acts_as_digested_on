@@ -4,7 +4,7 @@ class Article < ActiveRecord::Base
   define_table do |t|
     t.string :title
     t.text :url
-    t.text :digest
+    t.string :digest
     t.text :content
   end
 end
