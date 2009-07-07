@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "acts_as_digested_on.gemspec",
      "init.rb",
      "lib/acts_as_digested_on.rb",
      "spec/acts_as_digested_on_spec.rb",
