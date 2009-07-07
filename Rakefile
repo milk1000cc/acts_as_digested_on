@@ -5,7 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "acts_as_digested_on"
-    gem.summary = %Q{TODO}
+    gem.description = 'A rails plugin to set the digested value before validation and validate uniqueness.'
+    gem.summary = %Q{automatically set sha-1 hex digest}
     gem.email = "info@milk1000.cc"
     gem.homepage = "http://github.com/milk1000cc/acts_as_digested_on"
     gem.authors = ["milk1000cc"]
