@@ -1,6 +1,8 @@
 = ActsAsDigestedOn
 
-acts_as_digested_on sets the digested value before validation and validates uniqueness of the digested value.
+acts_as_digested_on is a rails plugin.
+
+This sets the digested value before validation and validates uniqueness of the digested value.
 
 == Install
 
@@ -35,7 +37,7 @@ or
     ...
   end
 
-  # this equals
+  # this means
   class Article < ActiveRecord::Base
     validates_uniqueness_of :digest
     before_validation :set_digest
