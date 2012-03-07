@@ -1,16 +1,14 @@
 = ActsAsDigestedOn
 
-acts_as_digested_on is a rails plugin.
+acts_as_digested_on is a gem for Rails 3.
 
 This sets the digested value before validation and validates uniqueness of the digested value.
 
+If you use this gem for Rails 2, see rails-2 branch.
+
 == Install
 
-  sudo gem install milk1000cc-acts_as_digested_on --source=http://gems.github.com
-
-or
-
-  script/plugin install git://github.com/milk1000cc/acts_as_digested_on.git
+  sudo gem install acts_as_digested_on
 
 == Usage
 
@@ -67,6 +65,6 @@ or
 
 == Copyright
 
-Copyright (c) 2009 milk1000cc, released under the MIT license
+Copyright (c) 2009-2012 milk1000cc, released under the MIT license
 
 milk1000cc <mailto:info@milk1000.cc>

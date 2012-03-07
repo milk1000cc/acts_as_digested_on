@@ -1,3 +1,4 @@
+require "acts_as_digested_on/version"
 require 'digest/sha1'
 
 module ActsAsDigestedOn
@@ -26,7 +27,9 @@ module ActsAsDigestedOn
     def generate_digest
       original_columns = self.class.acts_as_digested_on_vars[:original_columns]
       original_string = "--#{ original_columns.map { |v| self[v].to_s }.join('--') }--"
-      Digest::SHA1.hexdigest original_string
+      digest = Digest::SHA1.hexdigest(original_string)
+      digest.encode! 'utf-8' if RUBY_VERSION.to_f >= 1.9
+      digest
     end
 
     private
@@ -44,7 +47,7 @@ module ActsAsDigestedOn
       digest_column = options.delete(:digest_column) || 'digest'
       unique = options.key?(:unique) ? options.delete(:unique) : true
 
-      class_inheritable_hash :acts_as_digested_on_vars
+      class_attribute :acts_as_digested_on_vars
       self.acts_as_digested_on_vars = {
         :original_columns => original_columns,
         :digest_column => digest_column,

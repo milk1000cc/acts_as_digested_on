@@ -13,9 +13,7 @@ end
 
 describe "ActsAsDigestedOn" do
   before do
-    (ActiveRecord::Callbacks::CALLBACKS + [:validate, :validate_on_create, :validate_on_update]).each do |cb|
-      Article.instance_variable_set "@#{ cb }_callbacks", nil
-    end
+    Article.reset_callbacks :validate
     Article.destroy_all
   end
 
