@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   # specify any dependencies here; for example:
   # s.add_development_dependency "rspec"
   # s.add_runtime_dependency "rest-client"
-  s.add_dependency "rails"
+  s.add_dependency "rails", ">= 3.0.0"
   s.add_development_dependency "rspec"
   s.add_development_dependency "sqlite3"
 end
