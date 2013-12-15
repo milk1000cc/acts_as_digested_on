@@ -1,4 +1,3 @@
-require 'logger'
 require 'rspec/core'
 require 'active_record'
 
