@@ -1,5 +1,5 @@
 require 'logger'
-require 'rspec'
+require 'rspec/core'
 require 'active_record'
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
