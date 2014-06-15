@@ -36,7 +36,7 @@ module ActsAsDigestedOn
       attr_names = self.class.acts_as_digested_on_vars[:attr_names]
 
       str = separator.dup
-      str << attr_names.map { |v| self[v].to_s }.join(separator)
+      str << attr_names.map { |v| send(v).to_s }.join(separator)
       str << separator
       str
     end

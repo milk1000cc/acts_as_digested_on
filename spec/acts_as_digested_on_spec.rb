@@ -9,6 +9,10 @@ class Article < ActiveRecord::Base
     t.string :my_digest
     t.text :content
   end
+
+  def stripped_title
+    title.strip
+  end
 end
 
 describe ActsAsDigestedOn do
@@ -23,6 +27,18 @@ describe ActsAsDigestedOn do
 
   it 'has a version number' do
     expect(ActsAsDigestedOn::VERSION).not_to be nil
+  end
+
+  it 'can use a method name instead of a column name' do
+    Article.acts_as_digested_on :stripped_title
+
+    article = Article.create!(title: '   hello    ')
+
+    expect(article.digest).to eq Digest::SHA1.hexdigest('--hello--')
+
+    expect {
+      Article.create! title: 'hello'
+    }.to raise_error(ActiveRecord::RecordInvalid)
   end
 
   describe '#generate_digest' do
