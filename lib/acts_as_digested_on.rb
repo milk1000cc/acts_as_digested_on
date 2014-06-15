@@ -25,14 +25,22 @@ module ActsAsDigestedOn
 
   module InstanceMethods
     def generate_digest
-      original_columns = self.class.acts_as_digested_on_vars[:original_columns]
-      original_string = "--#{ original_columns.map { |v| self[v].to_s }.join('--') }--"
-      digest = Digest::SHA1.hexdigest(original_string)
+      digest = Digest::SHA1.hexdigest(original_string_for_digest)
       digest.encode! 'utf-8' if RUBY_VERSION.to_f >= 1.9
       digest
     end
 
     private
+    def original_string_for_digest
+      separator = '--'
+      attr_names = self.class.acts_as_digested_on_vars[:attr_names]
+
+      str = separator.dup
+      str << attr_names.map { |v| self[v].to_s }.join(separator)
+      str << separator
+      str
+    end
+
     def set_digest
       digest_column = self.class.acts_as_digested_on_vars[:digest_column]
       self[digest_column] = generate_digest
@@ -40,16 +48,16 @@ module ActsAsDigestedOn
   end
 
   module ClassMethods
-    def acts_as_digested_on(original_columns, options = {})
+    def acts_as_digested_on(attr_names, options = {})
       options = options.symbolize_keys
 
-      original_columns = Array(original_columns).flatten
+      attr_names = Array(attr_names).flatten
       digest_column = options.delete(:digest_column) || 'digest'
       unique = options.key?(:unique) ? options.delete(:unique) : true
 
       class_attribute :acts_as_digested_on_vars
       self.acts_as_digested_on_vars = {
-        :original_columns => original_columns,
+        :attr_names => attr_names,
         :digest_column => digest_column,
         :unique => unique,
         :validates_uniqueness_of_options => options
