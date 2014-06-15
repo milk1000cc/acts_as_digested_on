@@ -25,9 +25,7 @@ module ActsAsDigestedOn
 
   module InstanceMethods
     def generate_digest
-      digest = Digest::SHA1.hexdigest(original_string_for_digest)
-      digest.encode! 'utf-8' if RUBY_VERSION.to_f >= 1.9
-      digest
+      Digest::SHA1.hexdigest original_string_for_digest
     end
 
     private
