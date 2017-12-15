@@ -68,4 +68,4 @@ module ActsAsDigestedOn
   end
 end
 
-ActiveRecord::Base.send :include, ActsAsDigestedOn
+ActiveSupport.on_load(:active_record) { include ActsAsDigestedOn }
