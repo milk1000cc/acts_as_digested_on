@@ -1,6 +1,6 @@
 # ActsAsDigestedOn [![Build Status](https://travis-ci.org/milk1000cc/acts_as_digested_on.svg)](https://travis-ci.org/milk1000cc/acts_as_digested_on)
 
-acts_as_digested_on is a gem for Rails 3 and Rails 4.
+acts_as_digested_on is a gem for Rails 3, 4, and 5.
 
 This sets the digested value before validation and validates uniqueness of the digested value.
 
